@@ -13,12 +13,17 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this._getHost();
+    this._dbTest();
   }
 
   _getHost = async() => {
     const res = await axios.get('/api/host');
     this.setState({host: res.data.host});
+  }
+
+  _dbTest = async() => {
+    const res = await axios.get('/api/test');
+    console.log(res.data)
   }
 
   render() {
