@@ -35,5 +35,35 @@ let sequelize = new Sequelize(
         console.log('Unable to connect to the database: ', err);
     });
 
+    db.Teacher = require('./teacher')(sequelize, Sequelize);
+    db.Class = require('./class')(sequelize, Sequelize);
+
+    //   1 대 1 관계 (Teacher : Class)
+    //db.Teacher.hasOne(db.Class);
+
+    //   1 대 M 관계 (Teacher : Classes)
+    /*
+    db.Teacher.hasMany(db.Class, {
+        foreignKey: 'teacher_id',
+        sourceKey : 'id'
+    });
+
+    db.Class.belongsTo(db.Teacher, {
+        foreignKey: 'teacher_id',
+        targetKey : 'id'
+    });
+    */
+
+    // N 대 M 관계 (Teachers : Classes)
+    db.Teacher.belongsToMany(db.Class, {
+        through: 'schedule',
+        foreignKey : 'teacher_id'
+    });
+    db.Class.belongsToMany(db.Teacher, {
+        through: 'schedule',
+        foreignKey : 'class_id'
+    });
+
+
 db.secret = '(9*)5$&!3%^0%^@@2$1!#5@2!4';
 module.exports = db;
