@@ -1,8 +1,7 @@
-const { DataTypes } = require("sequelize/types");
 
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define(
-      'teacher', // 테이블의 이름을 지정합니다.
+      'teacher',
       {
        name: {
         type: DataTypes.STRING(50),
